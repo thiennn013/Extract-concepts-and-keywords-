@@ -23,26 +23,25 @@ for file in list(glob.glob('*.txt')):
     lines = File.read() # đọc tất cả dòng
     sentences = nltk.sent_tokenize(lines) #tách câu
 
-
+# Duyệt từng câu trong file
     for sentence in sentences:
-         for word,pos in nltk.pos_tag(nltk.word_tokenize(str(sentence))): # tách từ sau đó gán nhãn
+        # Tách và duyệt từng từ trong câu, sau đó tiến hành gán nhãn
+         for word,pos in nltk.pos_tag(nltk.word_tokenize(str(sentence))):
              if pos == 'NN':
                  NN.write(word.lower()+',')
              if  pos == 'NNS':
                  NN.write(lemma.lemmatize(word).lower() + ',')
-             if pos == 'NNP':
-                 NNP.write(word + ',')
-             if pos == 'NNPS':
-                 NNP.write(lemma.lemmatize(word)+ ',')
+
 
 file = ('C:/Users/thien/PycharmProjects/NLP/outNN.txt')
 File = open(file)  # open file
 lines = File.read()
 
+# đưa từng từ vào array a
+a=np.array(lines.split(',')) 
 
-a=np.array(lines.split(',')) # đưa từng từ vào array a
-
-unique,counts = np.unique(a,return_counts=True) # đếm từ lưu vào array counts và tư lưu vào unique
+# đếm từ lưu vào array counts và tư lưu vào unique
+unique,counts = np.unique(a,return_counts=True) 
 
 data={'word':unique,
       'count':counts
